@@ -1,0 +1,42 @@
+<!-- JSX 사용하기!
+    -> JSX : 자바스크립트 확장 문법. HTML과 비슷함. createElement를 보완
+    but, 브라우저가 JSX를 이해하게 해주려면 createElement 형태로 코드 변환해줘야 함 -> 이를 위해 필요한 게 Babel -->
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <!-- Babel로 변환해주기! -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        const Title = () => (
+            <h3
+                id="title"
+                onMouseEnter={() => {
+                    console.log("mouse enter");
+                }}
+                style={{ color: "tomato" }}
+            >
+                Hello, I'm a title
+            </h3>
+        );
+        function Button() {
+            return <button onClick={() => console.log("im clicked")}>Click Me!</button>;
+        }
+
+        // 내가 만든(함수로 만든) Title과 Button을 HTML 타입인 것 처럼 집어넣기
+        // *** 내가 만든 컴포넌트는 반드시 대문자로 시작해야 함. button으로 하면 기본 HTML 요소로 인식함
+        const Container = () => (
+            <div>
+                <Title />
+                <Button />
+            </div>
+        );
+
+        ReactDOM.render(<Container />, root);
+    </script>
+</html>

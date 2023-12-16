@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+        <!-- -> 이 root라는 빈 div 안에 React DOM이 요소들을 전부 집어넣음 -->
+    </body>
+    <!-- 1. React와 ReactDOM import하기
+        - React JS : interactive UI를 만들어주게 하는 library == 엔진/파워하우스 같은 역할
+        - React DOM : element를 가져다가 HTML로 바꾸는 역할
+    -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <!-- 2. React element 만들기 -->
+    <script>
+        const root = document.getElementById("root");
+        const h3 = React.createElement(
+            // argument1) HTML태그
+            "h3",
+            {
+                // argument2) props가 포함된 객체
+                id: "title",
+                onMouseEnter: () => {
+                    console.log("mouse enter");
+                },
+                style: { color: "tomato" },
+                /* props 중 무언가는 HTML에 가야하고(style같은 애들), 무언가는 event listener가 됨 
+                   -> 이걸 구분하는 게? 'on' 으로 시작하는 것. */
+            },
+            // argument3) content
+            "나는 h3!"
+        );
+        const btn = React.createElement(
+            "button",
+            {
+                onClick: () => console.log("im clicked"),
+            },
+            "Click Me!"
+        );
+        const container = React.createElement("div", null, [h3, btn]); // 이 비어있는 div는 h3과 btn 두 개를 렌더링
+        /* 2-1. element 만들어주기 : React 내 createElement 기능 사용
+                내가 직접 span태그를 넣어주는 게 아닌, React와 ReactDOM이 넣어줌 */
+
+        ReactDOM.render(container, root);
+        /* 2-2. React element들을 root div 안에서 보여주라는 뜻.
+                ->  root라는 id를 찾아서 넣어줌 = root안에서 보여줘! */
+    </script>
+</html>
+<!-- 리액트 실행 순서! 
+    1. JavaScript에서 시작
+    2. 그 뒤에 HTML이 됨
+        -> 필요할 때, 그 때 React JS가 HTML을 업데이트 함 == 유저에게 보여질 내용 컨트롤 O
+        -> JavaScript를 이용해 element를 생성했고, React JS가 그것을 HTML로 번역하는 것임!
+ -->

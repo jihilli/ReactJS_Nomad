@@ -1,0 +1,52 @@
+<!-- State  
+     : React.js 어플 내에서 데이터를 보관 & 자동으로 리렌더링 하는 방법
+     : state가 바뀌면, React가 컴포넌트를 자동으로 refresh 해줌 -->
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        function App() {
+            // state : const data = React.useState(0);
+            // ==> 배열 [data(우리가 담으려는 값), f(data를 바꿀 때 사용하는 modifier 함수)] 반환
+            // const counter = data[0];
+            // const modifier = data[1];
+            // let [counter, modifier] = React.useState(0)ss;
+            const [counter, setCounter] = React.useState(0);
+            const onClick = () => {
+                setCounter(counter + 1);
+            };
+            return (
+                <div>
+                    <h3>Total Clicks : {counter}</h3>
+                    <button onClick={onClick}>Click Me!</button>
+                </div>
+            );
+        }
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
+<!-- 
+    이름을 부여하고, 값 꺼내는 문법!
+        ex)
+        const food = ["tomato", "potato"]
+        const [myFavFood, mySecondFavFood] = food;
+        ex) const x = [1,2,3];
+        const [a,b,c] = x;
+-->
+
+<!--
+    ** state 작동 순서  
+    React.useState 함수는 counter같은 데이터를 숫자형 데이터로 건네줌 
+    ->그 데이터 값을 바꿀 함수도 건네줌
+    -> 그 함수를 이용해 데이터를 바꿨을 때, 데이터 값이 바뀌고 & 컴포넌트도 동시에 리렌더링됨
+
+    counter라는 데이터는 return()에 담겨있음 -> 버튼이 클릭되면 counter값을 바꿔줄 함수(setCounter) 호출 
+    -> counter의 새로운 값(현재값+1) 가지고 해당 함수 호출
+    * 데이터가 바뀔 때마다 컴포넌트를 리렌더링(== App컴포넌트 재생성 / 바뀌는 부분만!)하고 UI를 refresh함
+-->

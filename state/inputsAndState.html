@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        // Component 1
+        function MinutesToHours() {
+            const [amount, setAmount] = React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
+            const [hours, setHourse] = React.useState(0);
+            const onChange = () => {
+                setAmount(event.target.value);
+            };
+            const reset = () => {
+                setAmount(0);
+            };
+            const onFlip = () => {
+                reset();
+                setFlipped((current) => !current);
+            }; // 현재 상태에 따라 flip의 상태 반대로 바꿔주기
+            // state 값으로 input을 able할 지 disable할 지 결정
+            return (
+                <div>
+                    <div>
+                        <label for="minutes">Minutes</label>
+                        <input
+                            value={flipped ? amount * 60 : amount}
+                            id="minutes"
+                            placeholder="Minutes"
+                            type="number"
+                            onChange={onChange}
+                            // disabled={flipped === true}
+                            disabled={flipped}
+                        />
+                    </div>
+                    <div>
+                        <label for="hours">Hours</label>
+                        <input
+                            value={flipped ? amount : Math.round(amount / 60)}
+                            for="hours"
+                            placeholder="Hours"
+                            type="number"
+                            onChange={onChange}
+                            // disabled={flipped === false}
+                            disabled={!flipped}
+                        />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+            );
+        }
+        // Component 2
+        function KmsToMiles() {
+            return <h3>Kms to Miles</h3>;
+        }
+        // Component 3 (1과 2 컴포넌트를 렌더링)
+        function App() {
+            const [index, setIndex] = React.useState(0);
+            return (
+                <div>
+                    <h1>Super Converter</h1>
+                    <MinutesToHours />
+                </div>
+            );
+        }
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
+<!-- 
+    React와 JSX를 사용할 때 다른 점
+    : for, class 는 JS용 문법
+ -->

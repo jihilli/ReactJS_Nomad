@@ -1,0 +1,72 @@
+<!-- props : 부모 컴포넌트 -> 자식 컴포넌트 
+
+    Props를 사용하여 재사용성 높이기
+    Btn({txt : "Save Changes", x : 5}) -> 키값으로 꺼내주기
+    : 객체의 인자를 넘겨줌.
+
+    props 넘겨주는 방법 두 가지?
+    1) function Btn(props) { {props.txt} } 
+    2) function Btn({ txt }) { {txt} } : 프로퍼티를 object로부터 꺼냄
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script type="text/babel">
+        // function Btn({ txt, changeValue, big }) {
+        function Btn({ text, fontSize = 14 }) {
+            // fontSize = 14 : 정해지지 않은 것의 기본값 주기
+            return (
+                <button
+                    // onClick={changeValue} // changeValue 라는 onClick 이벤트리스너를 받게 됨
+                    style={{
+                        backgroundColor: "tomato",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 10,
+                        // fontSize: big ? "20px" : "15px",
+                        fontSize,
+                    }}
+                >
+                    {text}
+                </button>
+            );
+        }
+        // 부모 컴포넌트에 어떠한 변화라도 있을 경우, 모든 자식 컴포넌트들은 리렌더링됨.
+        // -> 이게 추후에 속도 저하의 원인이 될 수 있음!
+        // => * 리액트 메모 - props가 바뀌지 않는 부분은 re-rendering을 하지 않도록 함
+        const MemorizedBtn = React.memo(Btn);
+
+        // PropTypes : props의 타입 설정해주기
+        Btn.propTypes = {
+            text: PropTypes.string.isRequired, // isRequired : 반드시 전해져야 하는 props로 설정
+            fontSize: PropTypes.number,
+        };
+
+        function App() {
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Changes");
+            return (
+                <div>
+                    {/* <MemorizedBtn txt={value} changeValue={changeValue} big={true} />*/}
+                    <MemorizedBtn text="Save Changes" fontSize={30} />
+                    <MemorizedBtn text={"Continue"} />
+                </div>
+            );
+        }
+        const root = document.getElementById("root");
+
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
+<!-- 
+    
+
+-->

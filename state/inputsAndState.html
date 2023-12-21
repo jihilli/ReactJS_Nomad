@@ -55,17 +55,66 @@
                 </div>
             );
         }
-        // Component 2
-        function KmsToMiles() {
-            return <h3>Kms to Miles</h3>;
+        // Component 2 - 직접 혼자서 작성하면서 복습하기
+        function KmToMiles() {
+            const [amount, setAmount] = React.useState(0);
+            const [flip, setFlip] = React.useState(false);
+            const onChange = () => {
+                setAmount(event.target.value);
+            };
+            const onFlipped = () => {
+                setFlip(!flip);
+                setAmount(0);
+            };
+            const reset = () => {
+                setAmount(0);
+            };
+            return (
+                <div>
+                    <h3>Km to Miles</h3>
+                    <div>
+                        <label>KM</label>
+                        <input
+                            id="km"
+                            type="number"
+                            value={flip ? amount * 1.609 : amount}
+                            onChange={onChange}
+                            disabled={flip}
+                        />
+                    </div>
+                    <div>
+                        <label>Miles</label>
+                        <input
+                            id="miles"
+                            type="number"
+                            value={!flip ? amount / 1.609 : amount}
+                            onChange={onChange}
+                            disabled={!flip}
+                        />
+                    </div>
+                    <button onClick={onFlipped}>Flip</button>
+                    <button onClick={reset}>Reset</button>
+                </div>
+            );
         }
         // Component 3 (1과 2 컴포넌트를 렌더링)
         function App() {
-            const [index, setIndex] = React.useState(0);
+            const [index, setIndex] = React.useState("1"); // index에 어떤 값이 있느냐에 따라 minutes 나 miles를 보여줌
+            const onSelect = (event) => {
+                setIndex(event.target.value);
+            };
             return (
                 <div>
                     <h1>Super Converter</h1>
-                    <MinutesToHours />
+                    <select value={index} onChange={onSelect}>
+                        <option value="xx">Select your units</option>
+                        <option value="0">Minutes & Hours</option>
+                        <option value="1">Km & Miles</option>
+                    </select>
+                    <hr />
+                    {index === "xx" ? "Please select your units" : null}
+                    {index === "0" ? <MinutesToHours /> : null}
+                    {index === "1" ? <KmToMiles /> : null}
                 </div>
             );
         }

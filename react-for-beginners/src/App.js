@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 import styles from "./App.module.css";
 import Button from "./Button";
+import CleanUp from "./CleanUp";
 
 function App() {
     const [counter, setValue] = useState(0);
@@ -47,6 +48,13 @@ function App() {
                 <h1>{counter}</h1>
                 <button onClick={onClick}>Click me</button>
             </div>
+
+            <hr />
+
+            <div>
+                <CleanUp />
+            </div>
+
             <hr />
 
             <div>

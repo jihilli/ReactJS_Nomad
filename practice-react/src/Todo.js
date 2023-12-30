@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function App() {
+const Todo = () => {
     const [toDo, setToDo] = useState("");
     const [toDos, setToDos] = useState([]); // toDo를 여러개 받아줄 배열
     const onChange = (e) => setToDo(e.target.value);
@@ -29,8 +29,6 @@ function App() {
             </ul>
         </div>
     );
-}
+};
 
-export default App;
-
-// map함수 : array에 있는 item을 내가 원하는 무엇이든지로 바꿔주는 역할을 함
+export default Todo;

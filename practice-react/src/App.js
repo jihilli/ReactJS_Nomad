@@ -9,7 +9,7 @@ const App = () => {
             {/* Home 렌더링 */}
             <Route path="/" element={<Home />}></Route>
             {/* Detail 렌더링 */}
-            <Route path="/movie" element={<Detail />}></Route>
+            <Route path="/movie/:id" element={<Detail />}></Route>
         </Routes>
     );
 };
